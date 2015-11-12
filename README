@@ -1,9 +1,9 @@
 
 The pg-infoscreen-server is part of the pg-infoscreen project. This projected provides a infrastructure for running multiple infoscreens.
 
-For licence informations read the LICENCE file.
 
-=== Things to do before you start ===
+Things to do before you start
+-----------------------------
 
 * Setup your configuration
 
@@ -19,11 +19,20 @@ Go to the folder "public" and then run "bower update". Bower downloads all requi
     copy the file "public/bower_components/angular-file-upload/dist/angular-file-upload.min.js" to
     "public/bower_components/angular-file-upload/angular-file-upload.min.js" 
 
-=== Start the Server ====
+Start the Server
+----------------
 
 run "sbt run"
 
-== There is also a Handbook available ==
+There is also a Handbook available
+----------------------------------
 
+TODO
+
+Copyright And License
+---------------------
+
+Copyright (c) 2015 Fabian Bock, Fabian Bruckner, Christine Dahn, Amin Nirazi, Matthäus Poloczek, Kai Sauerwald, Michael Schultz, Shabnam Tabatabaian, Tim Tegeler and Marvin Wepner. All rights reserved.
+The copyrights embodied in the content of this file are licensed under the GPL3 open source license.
 
 
