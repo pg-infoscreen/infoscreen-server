@@ -1,0 +1,36 @@
+<div class="well well-sm">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'CHANNELS.CHANNELS.TEXT' | translate }}
+</div>
+<form class="form-inline" role="form">
+    <button type="button" class="btn btn-success"  data-ng-click="get()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    <a href="#/roles/new" class="btn btn-primary">{{ 'NEW' | translate }}</a>
+    <div class="input-group">
+        <span class="input-group-addon">{{ 'SEARCH' | translate }}</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+       {{ 'ROLES' | translate }} <small>{{roles.length}}</small>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><a href="" data-ng-click="orderProp = 'role_id'; reverse=!reverse">{{ 'ID' | translate }}</a></th>
+                <th><a href="" data-ng-click="orderProp = 'name'; reverse=!reverse">{{ 'NAME' | translate }}</a></th>
+                <th><a href="" data-ng-click="orderProp = 'roles.length'; reverse=!reverse">{{ 'NUMBER.OF.USERS' | translate }}</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="role in roles | filter:query | orderBy:orderProp:reverse" data-ng-class="{'info':activeChannel_id==role.role_id}">
+                <td>{{role.role_id}}</td>
+                <td><a href="#/role/{{role.role_id}}">{{role.name}}</a></td>
+                <td>{{getUserCount(role)}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

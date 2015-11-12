@@ -1,0 +1,110 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Infoscreen
+#------------------------------------------------------------------------------------------
+# Index
+GET           /                                    controllers.Index.index()
+GET           /socket                              controllers.Index.socket()
+GET           /channel/:id                         controllers.Index.indexChannel(id :Integer)
+GET           /client/:token                       controllers.Index.indexClient(token: String)
+GET           /init/:id                            controllers.Index.init(id :Integer)
+GET           /fallbackTemplate                    controllers.Index.fallbackTemplate()
+# Preview
+GET           /preview/:id                         controllers.Preview.preview(id :Integer)
+# File
+GET           /library/:name                       controllers.File.getRawFileFromLibrary(name: String)
+# Javascript
+GET           /client.js                           controllers.JavaScript.js()
+
+# Administration
+#------------------------------------------------------------------------------------------
+GET           /admin                               controllers.AdminOpen.index()
+POST          /admin/login                         controllers.AdminOpen.login()
+GET           /admin/requestPassword/:email        controllers.AdminOpen.requestPassword(email: String)
+POST          /admin/logout                        controllers.AdminSecured.logout()
+GET           /ping                                controllers.AdminSecured.ping()
+
+# Javascript
+GET           /angular/app.js                      controllers.AdminOpen.js()
+# Other
+GET           /admin/metrics                       com.kenshoo.play.metrics.MetricsController.metrics()
+
+# REST-Schnittstelle
+#------------------------------------------------------------------------------------------
+GET           /slides                              controllers.Api.Slide.getAll()
+GET           /slides/new                          controllers.Api.Slide.getNew()
+GET           /slides/:id                          controllers.Api.Slide.get(id: Integer)
+PUT           /slides                              controllers.Api.Slide.put()
+DELETE        /slides/:id                          controllers.Api.Slide.delete(id: Integer)
+
+GET           /channels                            controllers.Api.Channel.getAll()
+GET           /channels/new                        controllers.Api.Channel.getNew()
+GET           /channels/:id                        controllers.Api.Channel.get(id: Integer)
+PUT           /channels                            controllers.Api.Channel.put()
+DELETE        /channels/:id                        controllers.Api.Channel.delete(id: Integer)
+
+GET           /templates                           controllers.Api.Template.getAll()
+GET           /templates/new                       controllers.Api.Template.getNew()
+GET           /templates/:id                       controllers.Api.Template.get(id: Integer)
+PUT           /templates                           controllers.Api.Template.put()
+DELETE        /templates/:id                       controllers.Api.Template.delete(id: Integer)
+
+GET           /files                               controllers.Api.File.getAll()
+GET           /files/:id                           controllers.Api.File.get(id: Integer)
+GET           /files/mime/:mime                    controllers.Api.File.getByMime(mime: String)
+POST          /files                               controllers.Api.File.put()
+DELETE        /files/:id                           controllers.Api.File.delete(id: Integer)
+
+GET           /users/me                            controllers.Api.Me.get()
+GET           /users/:id                           controllers.Api.User.get(id: Integer)
+PUT           /users                               controllers.Api.Me.put()
+
+GET           /log                                 controllers.Api.Log.get()
+GET           /log/slide/:id                       controllers.Api.Log.getContetUpdateForSlide(id: Integer)
+
+GET           /newstickers                         controllers.Api.NewsTicker.getAll()
+GET           /newstickers/new                     controllers.Api.NewsTicker.getNew()
+GET           /newstickers/:id                     controllers.Api.NewsTicker.get(id: Integer)
+PUT           /newstickers                         controllers.Api.NewsTicker.put()
+DELETE        /newstickers/:id                     controllers.Api.NewsTicker.delete(id: Integer)
+
+GET           /screens                             controllers.Api.Screen.getAll()
+GET           /refreshScreen/:id                   controllers.Api.Screen.refreshScreen(id :Integer)
+
+GET           /clients                             controllers.Api.Client.getAll()
+GET           /clients/new                         controllers.Api.Client.getNew()
+GET           /clients/:id                         controllers.Api.Client.get(id: Integer)
+PUT           /clients                             controllers.Api.Client.put()
+DELETE        /clients/:id                         controllers.Api.Client.delete(id: Integer)
+POST          /checkin                             controllers.Api.Checkin.checkin()
+
+GET           /statistic/slides                    controllers.Api.Statistic.getSlideStats()
+GET           /statistic/channel/:id               controllers.Api.Statistic.getChannelStats(id :Integer)
+GET           /statistic/client/:id                controllers.Api.Statistic.getClientStats(id :Integer)
+GET           /statistic/statisticDay/:id          controllers.Api.Statistic.getStatisticDayStats(id :Integer)
+GET           /statistic/access                    controllers.Api.Statistic.getAccess()
+
+GET           /super/users                         controllers.Api.User.getAll()
+GET           /super/users/new                     controllers.Api.User.getNew()
+GET           /super/users/:id                     controllers.Api.User.get(id: Integer)
+GET           /super/users/access/:id              controllers.Api.User.getAccess(id: Integer)
+GET           /super/users/edit/:id                controllers.Api.User.getEdit(id: Integer)
+GET           /super/users/session/:id             controllers.Api.User.getSession(id: Integer)
+GET           /super/users/kick/:id                controllers.Api.User.kick(id: Integer)
+DELETE        /users/:id                           controllers.Api.User.delete(id: Integer)
+PUT           /super/users                         controllers.Api.User.put()
+GET           /super/users/check/:email            controllers.Api.User.checkExists(email: String)
+GET           /super/roles                         controllers.Api.Role.getAll()
+GET           /super/roles/new                     controllers.Api.Role.getNew()
+GET           /super/roles/:id                     controllers.Api.Role.get(id: Integer)
+PUT           /super/roles                         controllers.Api.Role.put()
+DELETE        /super/roles/:id                     controllers.Api.Role.delete(id: Integer)
+
+POST          /summarizer                          controllers.Api.Summarizer.requestSumy()
+GET           /sumy                                controllers.Assets.at(path="/public", file="python_script/sumy.html")
+
+# Map static resources from the /public folder to the /assets URL path
+#------------------------------------------------------------------------------------------
+GET           /assets/*file                        controllers.Assets.at(path="/public", file)

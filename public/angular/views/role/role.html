@@ -1,0 +1,66 @@
+<div class="well well-sm">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> 
+    <span translate="ROLES.ROLE.TEXT" translate-value-channel="{{channel.channel_id}}"></span>
+</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        {{ 'INPUT' | translate }}
+    </div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Der Name dient lediglich als Bezeichner um die Rollen auseinander zu halten.">{{ 'NAME' | translate }}</abbr> <span class="label label-default">{{role.name.length}} {{ 'CHARACTER' | translate }}</span></label>
+                <input type="text" name="name" data-ng-model="role.name" class="form-control" data-ng-readonly="role.role_id == 1" required />
+            </div>
+        </form>
+       <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="text-center">{{ 'ROLES.ROLE.TEXT.CHANNELS' | translate }} <small translate="ROLES.ROLE.TEXT.ACTIVECHANNELS" translate-value-count="{{role.channels.length}}"></small></h4>
+                <div class="well" ng-If="role.role_id != 1">
+                    <label ng-repeat="channel in channels track by $index" >
+					  <input type="checkbox" checklist-model="user.channels" checklist-value="channel" > {{channel.name}} </input>
+					</label>
+                </div>
+                <div class="well" ng-If="role.role_id == 1">
+                    <label ng-repeat="channel in channels track by $index" >
+                      <input data-ng-disabled="true" type="checkbox" ng-checked="true" > {{channel.name}} </input>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center">{{ 'ROLES.ROLE.TEXT.USERS' | translate }} <small translate="ROLES.ROLE.TEXT.INTHISROLE" translate-value-count="{{usersInRole.length}}"></small></h4>
+                <div class="well">
+                    <label ng-repeat="user in users">
+                      <input type="checkbox" checklist-model="usersInRole" checklist-value="user"> {{user.name}} </input>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+        <!-- <button class="btn btn-default" type="button" data-ng-click="saveRole()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon" data-ng-class="{'glyphicon-floppy-save': success == null, 'has-success': myForm.updateTimeUnit.$valid==1}" aria-hidden="true"></span>&nbsp;{{ 'SAVE' | translate }}</button> -->
+            <button class="btn btn-default" type="button" data-ng-click="update()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;{{ 'UPDATE' | translate }}</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-ng-disabled="role.role_id == 1">&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;{{ 'REMOVE' | translate }}</button>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'ROLES.ROLE.TEXT.DELETEHEAD' | translate }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span translate="ROLES.ROLE.TEXT.DELETE" translate-value-role="{{role.name}}"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'REMOVE.ABORT' | translate }}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="delete()">{{ 'REMOVE.CONFIRM' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

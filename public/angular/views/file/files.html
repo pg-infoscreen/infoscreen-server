@@ -1,0 +1,39 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'LIBRARYS.LIBRARYS.TEXT' | translate }}</div>
+<form class="form-inline" role="form">
+    <button type="button" class="btn btn-success"  data-ng-click="get()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    <a href="#/files/new" class="btn btn-primary">{{ 'UPLOAD' | translate }}</a>
+    <div class="input-group">
+        <span class="input-group-addon">{{ 'SEARCH' | translate }}</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+
+        {{ 'LIBRARY' | translate }} <small>{{files.length}}</small>
+    </div>
+    <div class="panel-body">
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th><a href="" data-ng-click="orderProp = 'file_id'; reverse=!reverse">{{ 'ID' | translate }}</a></th>
+            <th><a href="" data-ng-click="orderProp = 'name'; reverse=!reverse">{{ 'NAME' | translate }}</a></th>
+            <th><a href="" data-ng-click="orderProp = 'name'; reverse=!reverse">{{ 'WEBPATH' | translate }}</a></th>
+            <th><a href="" data-ng-click="orderProp = 'creationtime'; reverse=!reverse">{{ 'CREATION.TIME' | translate }}</a></th>
+            <th><a href="" data-ng-click="orderProp = 'size'; reverse=!reverse">{{ 'SIZE' | translate }}</a></th>
+            <th><a href="" data-ng-click="orderProp = 'owner.email'; reverse=!reverse">{{ 'OWNER' | translate }}</a></th>
+        </tr>
+        <tr data-ng-repeat="file in files | filter:query | orderBy:orderProp:reverse">
+            <td>{{file.file_id}}</td>
+            <td><a href="#/files/{{file.file_id}}">{{file.name}}</a></td>
+            <td><span class="glyphicon glyphicon-globe" aria-hidden="true" data-ng-click="clipboard()" title="Der Webpfad kann benutzt werden, um öffentllich auf die Datei zu zugreifen." style="cursor:pointer"></span></td>
+            <td>{{file.creationtime.millis | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{file.size | filterSizeHumanReadable}}</td>
+            <td>{{file.owner.email}}</td>
+        </tr>
+    </table>
+</div>

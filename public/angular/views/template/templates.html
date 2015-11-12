@@ -1,0 +1,40 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'TEMPLATES.TEMPLATES.TEXT' | translate }}</div>
+<form class="form-inline" role="form">
+    <button type="button" class="btn btn-success"  data-ng-click="get()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    <a href="#/templates/new" class="btn btn-primary">{{ 'NEW' | translate }}</a>
+    <div class="input-group">
+        <span class="input-group-addon">{{ 'SEARCH' | translate }}</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        {{ 'TEMPLATES' | translate }} <small>{{templates.length}}</small>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><a href="" data-ng-click="orderProp = 'template_id'; reverse=!reverse">Id</a></th>
+                <th><a href="" data-ng-click="orderProp = 'name'; reverse=!reverse">{{ 'NAME' | translate }}</a></th>
+                <th><a href="" data-ng-click="orderProp = 'script.length'; reverse=!reverse">JavaScript ({{ 'CHARACTER' | translate }})</a></th>
+                <th><a href="" data-ng-click="orderProp = 'css.length'; reverse=!reverse">CSS ({{ 'CHARACTER' | translate }})</a></th>
+                <th><a href="" data-ng-click="orderProp = 'html.length'; reverse=!reverse">HTML ({{ 'CHARACTER' | translate }})</a></th>
+                <th><a href="" data-ng-click="orderProp = 'templateDescription.length'; reverse=!reverse">TD</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="template in templates | filter:query | orderBy:orderProp:reverse" data-ng-class="{'info': activeTemplate_id==template.template_id}">
+                <td>{{template.template_id}}</td>
+                <td><a href="#/template/{{template.template_id}}">{{template.name}}</a></td>
+                <td>{{template.script.length }}</td>
+                <td>{{template.css.length }}</td>
+                <td>{{template.html.length }}</td>
+                <td><span class="glyphicon" ng-class="template.templateDescription.length > 0? 'glyphicon-ok' : 'glyphicon-remove'" aria-hidden="true"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

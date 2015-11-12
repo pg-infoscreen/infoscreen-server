@@ -1,0 +1,2 @@
+1000:com.kenshoo.play.metrics.MetricsPlugin
+1500:play.api.libs.mailer.CommonsMailerPlugin

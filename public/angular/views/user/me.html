@@ -1,0 +1,62 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Die hier aufgeführten Benuzter haben Zugriff auf den Administrationsbereich des Servers. Ein Benutzer, der mit dem Symbol <span class="glyphicon glyphicon-king" aria-hidden="true" title="Administrator mit Superrechten." data-ng-show="user.superrights"></span> ausgezeichnet ist, besitzt zudem Superrechte. Er kann andere Benutzer bearbeiten und ihre Zugriffsdaten einsehen.</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Eingabe</div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.email.$valid==0, 'has-success':myForm.email.$valid==1}">
+                <label><abbr title="Die E-Mail Adresse dient zum Anmelden im Adminportal des Infoscreens und dem Empfang wichtiger Meldungen.">E-Mail</abbr></label>
+                <input type="text" name="email" placeholder="" data-ng-model="user.email" class="form-control" data-ng-readonly="true" required />
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Die E-Mail Adresse dient zum Anmelden im Adminportal des Infoscreens und dem Empfang wichtiger Meldungen.">Vorname</abbr></label>
+                <input type="text" name="name" placeholder="" data-ng-model="user.firstname" class="form-control" required />
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.firstname.$valid==0, 'has-success':myForm.firstname.$valid==1}">
+                <label><abbr title="Die E-Mail Adresse dient zum Anmelden im Adminportal des Infoscreens und dem Empfang wichtiger Meldungen.">Name</abbr></label>
+                <input type="text" name="firstname" placeholder="" data-ng-model="user.name" class="form-control" required />
+            </div>
+
+            <div class="form-group" data-ng-class="{'has-error': myForm.password.$valid==0, 'has-success':myForm.password.$valid==1}">
+                <label><abbr title="Das Passwort dient zum Anmelden im Adminportal des Infoscreen.">Passwort</abbr></label>
+                <span class="label label-danger" data-ng-show="passwordStrength=='week'">schwach</span>
+                <span class="label label-warning" data-ng-show="passwordStrength=='medium'">mittel</span>
+                <span class="label label-success" data-ng-show="passwordStrength=='strong'">stark</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="addUpper" data-ng-click="generatePassword()">
+                        Großbuchstaben
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="addNumbers" data-ng-click="generatePassword()">
+                        Ziffern
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="addSymbols" data-ng-click="generatePassword()">
+                        Sonderzeichen
+                    </label>
+                </div>
+                <div>
+                    Passwortlänge <span class="label label-default">{{passwordLength}} Zeichen</span>
+                    <input type="range" min="8" max="50" step="1" value="12" data-ng-model="passwordLength" data-ng-click="generatePassword()">
+                </div>
+                <div class="input-group">
+                    <input type="text" name="password" placeholder="Neues Passwort eingeben" data-ng-model="user.password" class="form-control" data-ng-readonly="true"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="generatePassword()">generiere</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button class="btn btn-default" type="button" data-ng-click="update()" data-ng-disabled="!myForm.$valid || !user.password">aktualisieren</button>
+        </div>
+    </div>
+</div>
+

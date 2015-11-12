@@ -1,0 +1,81 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Die hier aufgeführten Clients sind Infoscreens an der Technischen Universität Dortmund. Während des Startvorgangs können sie sich mit dem Token am Server registrieren um die aktuelle IP-Adresse und den SSH-Port zu übertragen.</div>
+<form class="form-inline" role="form">
+    <button type="button" class="btn btn-success"  data-ng-click="get()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    <a href="#/clients/new" class="btn btn-primary">Neu</a>
+    <div class="input-group">
+        <span class="input-group-addon">Suche</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+<div class="row" >
+    <div class="col-sm-6 col-md-4" data-ng-repeat="client in clients | filter:query">
+        <div class="panel panel-default">
+             <div class="panel-heading">
+                 <span class="glyphicon" data-ng-class="{'glyphicon-link': client.online=='connected', 'glyphicon-flash': client.online=='disconnected'}" aria-hidden="true"></span> <a href="#/client/{{client.client_id}}">{{client.name}}</a>
+                 <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#myModal{{client.client_id}}"><span aria-hidden="true">&times;</span></button>
+             </div>
+            <div class="panel-body" data-ng-class="{'tu-active':activeClient_id==client.client_id}">
+                <div class="form-group">
+                    <label for="token"><abbr title="Eine IP-Adresse ist eine Adresse in Computernetzen, die auf dem Internetprotokoll (IP) basiert.">Token</abbr></label>
+                    <input type="text" class="form-control" id="token" value="{{client.token}}" readonly>
+                </div>
+                <address>
+                    <strong>{{client.location}}</strong><br>
+                    {{client.street}} {{client.housenumber}}<br>
+                    {{client.zipcode}} {{client.city}}<br>
+                </address>
+                <p>
+                    <abbr title="Die Anmeldezeit beschreibt, den Zeitpunkt an dem sich der Client angemeldet hat."><strong>Registrierung am:</strong></abbr> {{client.registertime.millis | date:'yyyy-MM-dd HH:mm:ss'}}<br>
+                </p>
+                <p data-ng-show="!client.clientcheckin[0].ip">
+                    <br>
+                    Der Client hat sich bisher noch nicht angemeldet.<br>
+                    <br>
+                </p>
+                <p data-ng-hide="!client.clientcheckin[0].ip">
+                    <abbr title="Eine IP-Adresse ist eine Adresse in Computernetzen, die auf dem Internetprotokoll (IP) basiert."><strong>IP:</strong></abbr> {{client.clientcheckin[client.clientcheckin.length-1].ip}}<br>
+                    <abbr title="Die Anmeldezeit beschreibt, den Zeitpunkt an dem sich der Client angemeldet hat."><strong>Angemeldet am:</strong></abbr> {{client.clientcheckin[client.clientcheckin.length-1].checkintime.millis | date:'yyyy-MM-dd HH:mm:ss'}}<br>
+                    <abbr title="Folgender SSH-Port wurde vom Client mitgeteilt."><strong>SSH:</strong></abbr> {{client.clientcheckin[client.clientcheckin.length-1].sshport}}<br>
+                </p>
+                <div data-ng-switch="channels.length" data-ng-cloak>
+                    <abbr title="Auswahl des Channels der diesem Client zugeordnet ist."><strong>Channel:</strong></abbr>&nbsp;
+                    <span data-ng-switch-when="0">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Es sind noch keine <a href="#/channels">Channels</a> angelegt.
+                    </span>
+                    <span data-ng-switch-default>
+                        <select data-ng-model="client.channel.channel_id" name="channel" data-ng-options="channel.channel_id as channel.name for channel in channels" required></select>
+                    </span>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn " data-ng-click="update()" data-ng-class="{'btn-default': success==null, 'btn-success': success==true, 'btn-danger': success==false}">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp; speichern</button>
+                <a class="btn " style="float: right" target="_blank" href="/client/{{client.token}}">Anzeigen</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-ng-repeat="client in clients track by $id(client) | filter:query">
+    <div class="modal fade" id="myModal{{client.client_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Clientinformationen löschen</h4>
+                </div>
+                <div class="modal-body">
+                    Möchten Sie die Informationen über den Client <b>{{client.name}}</b> wirklich löschen?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Nein, abbrechen</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="delete(client.client_id)">Ja, löschen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

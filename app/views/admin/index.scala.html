@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="adminApp">
+    <head>
+        <title>Infoscreen - Administration</title>
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/tu.png")">
+        <script>
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0; i<ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1);
+                    if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+                }
+                return "";
+            }
+        </script>
+        <script src="@routes.Assets.at("bower_components/ace-builds/src-min-noconflict/ace.js")"></script>
+        <script src="@routes.Assets.at("bower_components/jquery/dist/jquery.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/angular/angular.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/angular-mocks/angular-mocks.js")" type="text/javascript"></script>
+         <script src="@routes.Assets.at("bower_components/angular-dateparser/dist/angular-dateparser.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/angular-cookies/angular-cookies.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/angular-route/angular-route.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/checklist-model/checklist-model.js")" type="text/javascript"></script>       
+        <link rel="stylesheet" href="@routes.Assets.at("bower_components/bootstrap/dist/css/bootstrap.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("bower_components/bootstrap/dist/css/bootstrap-theme.min.css")">
+        <script src="@routes.Assets.at("bower_components/bootstrap/dist/js/bootstrap.min.js")"></script>
+        <!-- PrettyCron with dependencies -->
+        <script src="@routes.Assets.at("bower_components/later/later.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascript/prettycron/prettycron-edit.js")"></script>
+        <!-- Autofill Directives -->
+        <script src="@routes.Assets.at("bower_components/autofill-directive/autofill-directive.js")" type="text/javascript"></script>
+        <!-- Fix for old browsers -->
+        <script src="@routes.Assets.at("bower_components/es5-shim/es5-shim.min.js")"></script>
+        <script src="@routes.Assets.at("bower_components/angular-file-upload/angular-file-upload.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bower_components/angular-ui-ace/ui-ace.js")"></script>
+        <!-- Summernote-Editor -->
+        <link href="@routes.Assets.at("bower_components/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("bower_components/summernote/dist/summernote.css")" rel="stylesheet">
+        <script src="@routes.Assets.at("bower_components/summernote/dist/summernote.min.js")"></script>
+        <script src="@routes.Assets.at("bower_components/angular-summernote/dist/angular-summernote.min.js")"></script>
+        <!-- Statistic Charts -->
+        <script src="@routes.Assets.at("javascript/chart/Chart.min.js")"></script>
+        <script src="@routes.Assets.at("javascript/angular-chart/angular-chart.js")"></script>
+        <link rel="stylesheet" href="@routes.Assets.at("css/angular-chart/angular-chart.css")">
+        <!-- Translation -->
+        <script src="@routes.Assets.at("javascript/angular-translate/angular-translate.min.js")"></script>
+        <!-- Admin CSS File -->
+        <link rel="stylesheet" href="@routes.Assets.at("css/tu-theme.css")">
+        <script src="@routes.AdminOpen.js()" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div data-ng-controller="LoginCtrl" data-ng-switch="!!user.user_id" data-ng-cloak>
+                <div data-ng-switch-when="false">
+                    <div class="col-md-4 col-md-offset-4">
+                        <img src="@routes.Assets.at("images/Technische_Universitaet_Dortmund_Logo.svg")" class="img-responsive" alt="Responsive image">
+                        <br>
+                        <div class="login" data-ng-hide="lostPassword">
+                            <form name="signin" autofill-submit="login(credentials)">
+                                <div class="alert alert-danger" data-ng-show="error">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Ihre Anmeldedaten sind nicht korrekt.
+                                </div>
+                                <div class="form">
+                                    <div class="form-group" data-ng-class="{'has-error': signin.email.$valid==0, 'has-success':signin.email.$valid==1}">
+                                        <input autofill type="email" name="email" placeholder="E-Mail" data-ng-model="credentials.email" class="form-control" required />
+                                    </div>
+                                    <div class="form-group" data-ng-class="{'has-error': signin.password.$valid==0, 'has-success':signin.password.$valid==1}">
+                                        <input autofill type="password" name="password" placeholder="Password" data-ng-model="credentials.password" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="link" data-ng-click="lostPassword=true"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Passwort anfordern</div>
+                                <button class="btn btn-default btn-block" type="submit" data-ng-disabled="!signin.$valid">anmelden</button>
+                            </form>
+                        </div>
+                        <div class="lostPassword" data-ng-show="lostPassword">
+                            <form name="request">
+                                <div class="alert alert-success" data-ng-show="passwordRequested">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Ihre Anfrage wurde ausgeführt.
+                                </div>
+                                <p data-ng-hide="passwordRequested">
+                                    Wenn Sie ihr Passwort vergessen haben, geben Sie bitte hier die Emailadresse Ihres Benutzerkontos ein. Ihnen wird dann ein neues Passwort zugesendet. Bitte beachten Sie, dass eine Anforderung eines neuen Passworts nur alle 5 Minuten möglich ist.
+                                </p>
+                                <div class="form" data-ng-hide="passwordRequested">
+                                    <div class="form-group" data-ng-class="{'has-error': request.email.$valid==0, 'has-success':request.email.$valid==1}">
+                                        <input autofill type="email" name="email" placeholder="E-Mail" data-ng-model="credentials.email" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="link" data-ng-click="lostPassword=false"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> zurück zur Anmeldung</div>
+                                <button class="btn btn-default btn-block" type="submit" data-ng-click="requestPassword()" data-ng-hide="passwordRequested">Password anfordern</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-switch-when="true">
+                    <br>
+                    <nav id="header" class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" data-ng-controller="HeaderController">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#">
+                                    <img src="@routes.Assets.at("images/tu.svg")" class="img-responsive" alt="Responsive image" style="height: 20px;">
+                                </a>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="" class="dropdown-toggle" data-toggle="dropdown">{{ 'INFOSCREEN' | translate }} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li data-ng-class="{ active: isActive('/channels') || isActive('/channel')}"><a href="#/channels">{{ 'CHANNELS' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/slides') || isActive('/slide')}"><a href="#/slides">{{ 'SLIDES' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/templates') || isActive('/template')}"><a href="#/templates">{{ 'TEMPLATES' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/newstickers') || isActive('/newsticker')}"><a href="#/newstickers">{{ 'NEWSTICKER' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/files')}"><a href="#/files">{{ 'LIBRARY' | translate }}</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="" class="dropdown-toggle" data-toggle="dropdown">{{ 'MENU.TOOLS' | translate }} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li data-ng-class="{ active: isActive('/summarizer')}"><a href="#/summarizer">{{ 'TEXT.SUMMARIZER' | translate }}</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown" data-ng-show="user.roles.length > 0">
+                                        <a href="" class="dropdown-toggle" data-toggle="dropdown">{{ 'MENU.ADMINISTRATION' | translate }} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li data-ng-class="{ active: isActive('/log') }"><a href="#/log">{{ 'SERVER.LOGS' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/statistics') }"><a href="#/statistics">{{ 'STATISTICS' | translate }}</a></li>
+                                            <li class="divider"></li>
+                                            <li data-ng-class="{ active: isActive('/screens') }"><a href="#/screens">{{ 'SCREENS' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/clients') || isActive('/client')}"><a href="#/clients">{{ 'CLIENTS' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/users') || isActive('/user')}"><a href="#/users">{{ 'USERS' | translate }}</a></li>
+                                            <li data-ng-class="{ active: isActive('/roles') || isActive('/roles')}"><a href="#/roles">{{ 'ROLES' | translate }}</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="/" target="_blank">{{ 'SCREEN' | translate }}</a></li>
+                                    <li class="dropdown">
+                                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a data-ng-click="changeLanguage('de')" href="">{{ 'GERMAN' | translate }}</a></li>
+                                            <li><a data-ng-click="changeLanguage('en')" href="">{{ 'ENGLISH' | translate }}</a></li>
+                                        </ul>
+                                    <li class="dropdown">
+                                        <a href="" class="dropdown-toggle" data-toggle="dropdown">{{user.email}}  <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#/user/me">{{ 'CHANGE.USER.DAT' | translate }}</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#/admin" data-ng-click="logout()">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                    <div id="errors" data-ng-controller="error">
+                        <div class="alert alert-danger" data-ng-show="errorFactory.hasError()">
+                            Leider ist ein Fehler aufgetreten. (HTTP Error {{errorFactory.getError()}})
+                            <span class="pull-right">
+                                <a href="" data-ng-click="resetError()"><span class="glyphicon glyphicon-remove alert-danger" aria-hidden="true"></span></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div data-ng-view class="starter-template">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

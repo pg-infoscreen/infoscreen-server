@@ -1,0 +1,55 @@
+<div class="well well-sm data-ng-scope">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'SUMMARIZERS.SUMMARIZERS.TEXT' | translate }}
+</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        {{ 'TEXT.SUMMARIZER' | translate }}
+    </div>
+    <div class="panel-body">
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="summarizerselector">{{ 'ALGORITHM' | translate }}:</label>
+                <select id="summarizerselector" data-ng-model="sumy.summarizer" >
+                    <option>lsa</option>
+                    <option>lex_rank</option>
+                    <option>luhn</option>
+                    <option>random</option>
+                    <option>text_rank</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="summarizerselector">{{ 'LANGUAGE' | translate }}:</label>
+                <select name="language" data-ng-model="sumy.language" >
+                    <option value="german">{{ 'GERMAN' | translate }}</option>
+                    <option value="english">{{ 'ENGLISH' | translate }}</option>
+                    <option value="french">{{ 'FRENCH' | translate }}</option>
+                    <option value="czech">{{ 'CZECH' | translate }}</option>
+                    <option value="slovak">{{ 'SLOVAK' | translate }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="summarizerselector">{{ 'SUMMARIZERS.SUMMARIZER.TEXT.ONE' | translate }}:</label>
+                <input type="text" name="targetlength" class="form-control" data-ng-model="sumy.targetlength">
+            </div>
+            <div class="form-group pull-right">
+                <button type="submit" class="btn btn-success" data-ng-click="summarize()">&nbsp;<span class="glyphicon glyphicon-compressed" aria-hidden="true"></span>&nbsp;{{ 'SUMMARIZE' | translate }}</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="textinput">{{ 'INPUT' | translate }}</label>
+                    <textarea rows="20" class="form-control well" id="textinput" data-ng-model="sumy.text"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="textoutput">{{ 'OUTPUT' | translate }}</label>
+                    <textarea rows="20" class="form-control well" id="textoutput" data-ng-model="textoutput"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

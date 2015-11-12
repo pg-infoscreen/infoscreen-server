@@ -1,0 +1,83 @@
+/**
+Copyright 2015 Fabian Bock, Fabian Bruckner, Christine Dahn, Amin Nirazi, Matthäus Poloczek, Kai Sauerwald, Michael Schultz, Shabnam Tabatabaian, Tim Tegeler und Marvin Wepner
+
+This file is part of pg-infoscreen.
+
+pg-infoscreen is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pg-infoscreen is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pg-infoscreen.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package models;
+
+// Import play classes
+import java.util.LinkedList;
+import java.util.List;
+
+import org.joda.time.DateTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+
+import play.data.format.Formats;
+// Import play classes
+import play.db.ebean.Model;
+
+@Entity
+public class Websocket extends Model {
+
+    @Id
+    public Integer websocket_id;
+    
+    public String path;
+    
+    public Integer guid;
+    
+    public Integer warnings;
+    
+    public String host;
+    
+    public String locale;
+    
+
+    public DateTime registerTime;
+    
+
+    public DateTime updateTime;
+
+    @ManyToOne
+    public Slide slide;
+    
+    @ManyToOne
+    public Client client;
+    
+    @ManyToOne
+    public Channel channel;
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @OrderBy("id ASC")
+    public List<RAEntry> ressourceAllocation = new LinkedList<RAEntry>();
+
+    public static Finder<Integer,Websocket> find = new Finder<Integer,Websocket>(
+            Integer.class, Websocket.class
+    );
+    
+    @Override
+    public void save() {
+        registerTime = new DateTime();
+        super.save();
+    }
+}

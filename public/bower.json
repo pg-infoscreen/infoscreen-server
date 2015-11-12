@@ -1,0 +1,53 @@
+{
+  "name": "pg-infoscreen-server",
+  "version": "0.0.1",
+  "authors": [
+    "Fabian Bock",
+    "Fabian Bruckner",
+    "Christine Dahn",
+    "Amin Nirazi",
+    "Matthäus Poloczek",
+    "Kai Sauerwald",
+    "Mark Schröder",
+    "Michael Schultz",
+    "Shabnam Tabatabaian",
+    "Tim Tegeler",
+    "Marvin Wepner"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "*",
+    "MathJax": "~2.4.0",
+    "ace-builds": "*",
+    "angular-cookies": "*",
+    "angular-file-upload": "*",
+    "angular-mocks": "*",
+    "angular-route": "*",
+    "angular-ui-ace": "*",
+    "angular-summernote": "*",
+    "angular-file-upload": "*",
+    "prettycron": "*",
+    "es5-shim" : "*",
+    "checklist-model": "*",
+    "summernote": "*",
+    "ngprogress": "1.0.7",
+    "angularjs": "*",
+    "bootstrap": "~3.3.2",
+    "highcharts": "~4.0.4",
+    "later": "*",
+    "moment": "~2.8.4",
+    "autofill-directive": "~2.0.0",
+    "angular-ui-bootstrap-datetimepicker": "~0.12.0",
+    "angular-ui-bootstrap-datepicker": "~0.1.0",
+    "angular-dateparser": "~1.0.12",
+    "angular-ui-bootstrap": "~0.13.1"
+  }
+}

@@ -1,0 +1,79 @@
+<div class="well well-sm">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> 
+    <span translate="STATISTICS.STATISTICS.TEXT"></span>
+</div>
+
+<div class="panel panel-default" data-ng-if="selectedSlides.length">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        {{ 'STATISTICS.STATISTIC.TEXT.ONE' | translate }}
+       <span class="pull-right">
+           <a href="" data-ng-click="updateChart()" title="Daten neu laden."><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a>
+       </span>
+    </div>
+    <div class="panel-body">
+        <canvas height='80' id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" options="options"></canvas>
+    </div>
+</div>
+
+<form class="form-inline" role="form">
+    <div class="pull-left">
+        <button type="button" class="btn btn-success"  data-ng-click="getSlides()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    </div>
+    <div class="dropdown pull-left">
+        &nbsp;
+        <button type="button" class="btn btn-primary" data-toggle="dropdown" data-ng-disabled="selectedSlides.length">{{dropdownLabel}} <span class="caret"></span></button>
+        <!--<a class="btn btn-primary" data-toggle="dropdown" data-ng-disabled="selectedSlides.length">{{dropdownLabel}} <span class="caret"></span></a>-->
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation"><a role="menuitem" style="cursor:pointer" data-ng-click="dropdownLabel = '{{ 'STATISTICS.STATISTIC.TEXT.TWO' | translate }}'; getSlides()">{{ 'STATISTICS.STATISTIC.TEXT.TWO' | translate }}</a></li>
+            <li role="presentation" class="dropdown-header">{{ 'CHANNELS' | translate }} ({{channels.length}})</li>
+            <li role="presentation" data-ng-repeat="channel in channels | orderBy:'name'">
+                <a role="menuitem" data-ng-click="$parent.dropdownLabel = 'Channel: ' + channel.name; $parent.getChannelSlides(channel.channel_id)" style="cursor:pointer">{{channel.name}}</a>
+            </li>
+            <li role="presentation" class="dropdown-header">{{ 'CLIENTS' | translate }} ({{clients.length}})</li>
+            <li role="presentation" data-ng-repeat="client in clients | orderBy:'name'">
+                <a role="menuitem" style="cursor:pointer" data-ng-click="$parent.dropdownLabel = 'Client: ' + client.name; $parent.getClientSlides(client.client_id)">{{client.name}}</a>
+            </li>
+        </ul>
+    </div>
+    &nbsp;
+    <div class="input-group">
+        <span class="input-group-addon">{{ 'SEARCH' | translate }}</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+       {{ 'SLIDES' | translate }} <small>{{statistics.length}}</small>
+    </div>
+    <div data-ng-show="loading">
+        <h5><center>{{ 'LOAD' | translate }}...</center></h5>
+    </div>
+    <table class="table table-hover" data-ng-hide="loading">
+        <thead>
+            <tr>
+                <th></th>
+                <th>{{ 'NAME' | translate }}</th>
+                <th><a href="" data-ng-click="orderProp = 'views'; reverse=!reverse">{{ 'VIEWS' | translate }}</a></th>
+                <th><a href="" data-ng-click="orderProp = 'updateTime'; reverse=!reverse">{{ 'LAST.VIEW' | translate }}</a></th>
+                <th><a href="" data-ng-click="orderProp = 'duration'; reverse=!reverse">{{ 'DURATION' | translate }}</th>
+                <th>&#216; {{ 'DURATION' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="statistic in statistics | filter: query | orderBy:orderProp:reverse">
+                <td><input type="checkbox" data-ng-click="$parent.selectSlide(statistic.slide.slide_id, statistic.slide.name)" data-ng-disabled="$parent.earlyDate > statistic.updateTime.millis"></td>
+                <td><a href="#/slide/{{statistic.slide.slide_id}}">{{statistic.slide.name}}</a></td>
+                <td>{{statistic.views}}</td>
+                <td>{{statistic.updateTime.millis | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{statistic.duration | filterSecondsToTime }}</td>
+                <td>{{(statistic.duration/statistic.views) | number : 0}} Sek</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,200 @@
+body{
+    background-color: #689F48;/*69AB37*/
+    color:white;
+}
+
+.vorschau{
+    position: fixed; 
+    left: 50%; 
+    transform: translate(-50%, 50%); 
+    font-size: 4em; 
+    font-weight: 800; 
+    text-shadow: 1px 1px 2px rgb(0, 0, 0); 
+    text-align: center;
+}
+
+.footer{
+    /* Leiste */
+    float: left;
+    clear: both;
+    bottom: 0px;
+    width:100%; 
+    position:fixed;
+    background-color: #444;
+    height: 50px;
+    padding: 1px 1% 1px 1%;
+    
+    /* Text */
+    font-family: "Open Sans",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #FFF;
+    font-size: 40px;
+    vertical-align: middle;
+    float: left;
+}
+
+.listitems { 
+    display:inline;
+    margin:0;
+    padding:0;
+}
+
+.content {
+    width: 100%; 
+    height: 90vh;
+}
+
+#footer-img {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;
+    height: 40px;
+}
+
+#imageDiv{
+    text-align:center;
+    margin-top: 2%;
+    margin-right: 2%;
+    float: left;
+}
+
+#textDiv{
+    font-size: 1.2em;
+}
+
+#description{
+    font-size: 1em;
+}
+
+#headline{
+    text-shadow: 1px 1px 2px #444;/**/
+    font-size:2.5em;
+    font-weight: 700;
+    text-align:center;
+}
+
+h1, h2, h3, h4, h5, h6{
+    text-shadow: 1px 1px 2px #444;
+    font-weight: 700;
+    text-align:center;
+}
+
+h1{
+    font-size:2.5em;
+}
+
+h2{
+    font-size:2.3em;
+}
+
+h3{
+    font-size:2.1em;
+}
+
+h4{
+    font-size:1.9em;
+}
+
+h5{
+    font-size:1.7em;
+}
+
+h6{
+    font-size:1.5em;
+}
+
+hr{
+    background-color:white;
+    width: 40%;
+    height:3px;
+    border: none 0px 0px;
+}
+
+@keyframes outin {
+    0%{
+		transform: scale(1,1);
+		opacity:1;
+	}
+	40%{
+		transform: scale(0.7,0.7);
+		opacity:0;
+	}
+	60%{
+		transform: scale(0.7,0.7);
+		opacity:0;
+	}
+	100%{
+		transform: scale(1,1);
+		opacity:1;
+	}
+}
+@-webkit-keyframes outin {
+    0%{
+		transform: scale(1,1);
+		opacity:1;
+	}
+	40%{
+		transform: scale(0.7,0.7);
+		opacity:0;
+	}
+	60%{
+		transform: scale(0.7,0.7);
+		opacity:0;
+	}
+	100%{
+		transform: scale(1,1);
+		opacity:1;
+	}
+}
+
+.animation-outin{
+    -webkit-animation: outin 1.5s;
+    animation: outin 1.5s;
+}
+
+.noJS{
+    visibility: hidden;
+}
+
+/*@media all and (max-width: 1200px) {
+    body{
+
+        font-size: 1.2em;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    body{
+
+        font-size: 1.2em;
+    }
+}
+
+@media all and (max-width: 800px) {
+    body{
+
+        font-size: 1em;
+    }
+}
+
+@media all and (max-width: 640px) {
+    body{
+
+        font-size: .8em;
+    }
+}
+
+@media all and (max-width: 480px) {
+    body{
+
+        font-size: .3em;
+    }
+}
+
+@media all and (max-width: 320px) {
+    body{
+    
+        font-size: 0.2em;
+    }
+}*/

@@ -1,0 +1,71 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Die hier aufgeführten Benuzter haben Zugriff auf den Administrationsbereich des Servers. Ein Benutzer, der mit dem Symbol <span class="glyphicon glyphicon-king" aria-hidden="true" title="Administrator mit Superrechten."></span> ausgezeichnet ist, besitzt zudem Superrechte. Er kann andere Benutzer bearbeiten und ihre Zugriffsdaten einsehen.</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Benutzerdetails</div>
+    <div class="panel-body">
+
+        {{user.firstname}} {{user.name}} <span class="glyphicon glyphicon-king" aria-hidden="true" title="Administrator mit Superrechten." data-ng-show="user.superrights"></span><br>
+        <strong>{{user.email}}</strong><br>
+        <br>
+        <p>
+            <strong>Registriert seit:</strong> {{user.creationtime.millis | date:'yyyy-MM-dd HH:mm:ss'}}<br>
+            <strong>Letzte Anmeldung:</strong> {{user.lastSession.timestamp.millis | date:'yyyy-MM-dd HH:mm:ss'}}<br>
+            <strong>Letzte Aktivität:</strong> {{user.lastAction.timestamp.millis | date:'yyyy-MM-dd HH:mm:ss'}}<br>
+            <span data-ng-show="edits != null && accesses != null"><strong>Aktivitäten:</strong> {{accesses.length + edits.length}}</span>
+        </p>
+    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" data-ng-class="{'active': status=='session'}"><a href="" data-ng-click="status='session'">Anmeldungen <span data-ng-show="sessions != null">({{sessions.length}})</span></a></li>
+        <li role="presentation" data-ng-class="{'active': status=='access'}"><a href="" data-ng-click="status='access'">Zugriffe <span data-ng-show="accesses != null">({{accesses.length}})</span></a></li>
+        <li role="presentation" data-ng-class="{'active': status=='edit'}"><a href="" data-ng-click="status='edit'">Änderungen <span data-ng-show="edits != null">({{edits.length}})</span></a></li>
+    </ul>
+    <table class="table" data-ng-show="status =='session'">
+        <tr>
+            <th>Zeitpunkt</th>
+            <th>IP</th>
+            <th>Browser</th>
+        </tr>
+        <tr data-ng-repeat="session in sessions | filter:query">
+            <td>{{session.timestamp.millis | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{session.ip}}</td>
+            <td>{{session.browser}}</td>
+        </tr>
+    </table>
+    <table class="table" data-ng-show="status =='access'">
+        <tr>
+            <th>Zugriff</th>
+            <th>Zeitpunkt</th>
+            <th>Methode</th>
+            <th>URI</th>
+        </tr>
+        <tr data-ng-repeat="access in accesses | filter:query">
+            <td>{{access.access_id}}</td>
+            <td>{{access.timestamp.millis | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{access.method}}</td>
+            <td>{{access.uri}}</td>
+        </tr>
+
+    </table>
+    <table class="table" data-ng-show="status =='edit'">
+        <tr>
+            <th>Zugriff</th>
+            <th>Zeitpunkt</th>
+            <th>Methode</th>
+            <th>URI</th>
+        </tr>
+        <tr data-ng-repeat-start="edit in edits | filter:query" data-ng-class="{'success': edit.showBody}">
+            <td data-ng-show="edit.body!=null"><a data-ng-click="body()" href="">(<span data-ng-show="edit.showBody!=true">+</span><span data-ng-show="edit.showBody==true">-</span>) {{edit.access_id}}</a></td>
+            <td data-ng-show="edit.body==null">{{edit.access_id}}</td>
+            <td>{{edit.timestamp.millis | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{edit.method}}</td>
+            <td>{{edit.uri}}</td>
+        </tr>
+        <tr data-ng-repeat-end data-ng-class="{'success': edit.showBody}">
+            <td colspan="5" data-ng-show="edit.showBody">
+                <textarea name="content" data-ng-model="edit.body" class="form-control" rows="3" disabled></textarea>
+            </td>
+        </tr>
+
+    </table>
+</div>
+

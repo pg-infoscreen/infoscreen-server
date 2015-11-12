@@ -1,0 +1,62 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Die hier aufgeführten Benuzter haben Zugriff auf den Administrationsbereich des Servers. Ein Benutzer der mit dem Symbol <span class="glyphicon glyphicon-king" aria-hidden="true" title="Administrator mit Superrechten."></span> ausgezeichnet ist, besitzt zudem Superrechte. Er kann andere Benutzer bearbeiten und ihre Zugriffsdaten einsehen.</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        Detaillierte Auswertung der Zugriffe auf die REST-API in den letzten 24 Stunden
+        <span class="pull-right">
+            <a href="" data-ng-click="updateChart()" title="Daten neu laden."><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a>
+        </span>
+    </div>
+    <div class="panel-body">
+        <canvas height='80' id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" options="options"></canvas>
+    </div>
+</div>
+<form class="form-inline" role="form">
+    <button type="button" class="btn btn-success" data-ng-click="get()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    <a href="#/users/new" class="btn btn-primary">Neu</a>
+    <div class="input-group">
+        <span class="input-group-addon">Suche</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        Benuzter <small>{{users.length}}</small>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th></th>
+            <th>Name</th>
+            <th>Emailadresse</th>
+            <th>registriert seit</th>
+            <th>Aktiviert</th>
+            <th>Sitzung</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="user in users | filter:query" data-ng-class="{'info': activeUser_id==user.user_id}">
+            <td>{{user.user_id}}</td>
+            <td><a href="#/user/{{user.user_id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" title="Informationen über den Benutzer betrachten."></span></a></td>
+            <td><a href="#/user/edit/{{user.user_id}}">{{user.firstname}} {{user.name}}</a> <span class="glyphicon glyphicon-king" aria-hidden="true" title="Administrator mit Superrechten." data-ng-show="user.role.name == 'SuperAdmin'"></span>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.creationtime.millis | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>
+                <button type="button" class="btn btn-xs btn-danger" data-ng-if="user.enabled == 0" data-ng-click="switchEnable()" title="Benutzer ist deaktiviert. Klicken Sie um den Benuzter wieder zu aktivieren."><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Off</button>
+                <button type="button" class="btn btn-xs btn-success" data-ng-if="user.enabled == 1" data-ng-click="switchEnable()" title="Benutzer ist aktiviert. Klicken Sie um den Benutzer zu deaktivieren. Dabei wird ein aktiver Benuzter vom System getrennt."><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> On</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-xs btn-success" data-ng-if="user.lastSession.kicked == 0" data-ng-click="kick()" title="Klicken Sie um einen aktiven Benutzer vom System zu trennen."><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> kick</button>
+                <span class="label label-warning" data-ng-if="user.lastSession.kicked == 1" title="Dieser Benuzter wurde vom System getrennt."><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> kicked</span>
+                <span class="label label-default" data-ng-if="user.lastSession == null" title="Dieser Benuzter war im System bisher nicht angemeldet."><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> nicht aktiv</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,63 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'NEWSTICKERS.NEWSTICKERS.TEXT' | translate }}</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        {{ 'INPUT' | translate }}
+    </div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Der Name dient lediglich als Bezeichner um die Newsticker auseinander zu halten.">{{ 'NAME' | translate }}</abbr> <span class="label label-default">{{newsticker.name.length}} {{ 'CHARACTER' | translate }}</span></label>
+                <input type="text" name="name" data-ng-model="newsticker.name" class="form-control" required />
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="newsticker.active"> <abbr title="Mit dieser Einstellung wird angegeben, ob eine Slide angezeigt oder nicht angezeigt werden soll.">{{ 'ACTIVE' | translate }}</abbr>
+                </label>
+            </div>
+            <hr>
+            <div class="form-group">
+                <div class="btn-group" role="group" aria-label=". ..">
+                    <button type="button" class="btn btn-default" data-ng-class="{'active': !newsticker.dynamic}" data-ng-click="newsticker.dynamic = 0">{{ 'STATIC' | translate }}</button>
+                    <button type="button" class="btn btn-default"  data-ng-class="{'active': newsticker.dynamic}" data-ng-click="newsticker.dynamic = 1">{{ 'DYNAMIC' | translate }}</button>
+                </div>
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.content.$valid==0, 'has-success':myForm.content.$valid==1}" data-ng-hide="newsticker.dynamic">
+                <label><abbr title="Der Inhalt ist der Bereich in dem die reinen Daten eines Newsticker abgespeichert werden. Der Inhalt wird bei nicht einem dynamischen Newsticker durch die in der URL definierten Quelle überschrieben.">{{ 'CONTENT' | translate }} <small>({{ 'NEWSTICKERS.NEWSTICKER.TEXT.ONE' | translate }})</small></abbr> <span class="label label-default">{{newsticker.content.length}} {{ 'CHARACTER' | translate }}</span></label>
+                <!--<textarea name="content" data-ng-model="slide.content" class="form-control" rows="3" required></textarea>-->
+                <!-- ACE EDITOR START -->
+                <div name="content" class="form-control" data-ng-model="newsticker.content" ui-ace="{
+                    mode: 'json',
+                    onLoad: aceLoaded
+                }" required ></div>
+                <!-- ACE EDITOR END -->
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.content.$valid==0, 'has-success':myForm.content.$valid==1}" data-ng-hide="!newsticker.dynamic">
+                <label><abbr title="Der Inhalt ist der Bereich in dem die reinen Daten eines Newsticker abgespeichert werden. Der Inhalt wird bei einem statischen Newsticker nicht überschrieben.">Inhalt <small>(als JSON-String)</small></abbr> <span class="label label-default">{{slide.content.length}} Zeichen</span></label>
+                <textarea name="content" data-ng-model="newsticker.content" class="form-control" rows="3" disabled></textarea>
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.url.$valid==0, 'has-success':myForm.url.$valid==1}" data-ng-hide="!newsticker.dynamic">
+                <label><abbr title="Die URL definiert den Ort, von dem die aktuellsten Daten geladen werden können. Für statischen Inhalt dieses Feld bitte leer lassen.">{{ 'URL' | translate }}</abbr> <span class="label label-default">{{newsticker.url.length}} {{ 'CHARACTER' | translate }}</span>
+                </label>
+                <input type="url" name="url" data-ng-model="newsticker.url" class="form-control" class="form-control" data-ng-required="newsticker.dynamic"/>
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.updateTime.$valid==0, 'has-success': myForm.updateTime.$valid==1}" data-ng-hide="!newsticker.dynamic">
+                <label><abbr title="Der Zeitabstand definiert die Zeit die zwischen zwei Aktualisierungen des Inhalts vergehen soll.">{{ 'NEWSTICKERS.NEWSTICKER.TEXT.TWO' | translate }} <small>({{ 'NEWSTICKERS.NEWSTICKER.TEXT.THREE' | translate }})</small></abbr> </label>
+                <input type="text" name="updateTime" data-ng-model="newsticker.updateTime" data-ng-pattern="/^([1-9]|[1-9][0-9])$/" class="form-control" data-ng-required/>
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.updateTimeUnit.$valid==0, 'has-success': myForm.updateTimeUnit.$valid==1}" data-ng-hide="!newsticker.dynamic">
+                <label><abbr title="Die Zeiteinheit definiert die Einheit des Zeitabstandes.">{{ 'NEWSTICKERS.NEWSTICKER.TEXT.FOUR' | translate }}</abbr></label>
+                <select data-ng-model="newsticker.updateTimeUnit" name="updateTimeUnit">
+                    <option value="MINUTES">{{ 'MINUTES' | translate }}</option>
+                    <option value="HOURS">{{ 'HOURS' | translate }}</option>
+                    <option value="DAYS">{{ 'DAYS' | translate }}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button class="btn btn-success" type="button" data-ng-click="save()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;{{ 'SAVE' | translate }}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+
+The pg-infoscreen-server is part of the pg-infoscreen project. This projected provides a infrastructure for running multiple infoscreens.
+
+For licence informations read the LICENCE file.
+
+=== Things to do before you start ===
+
+* Setup your configuration
+
+This is done by changing settings in "conf/application.conf" and "conf/application-prod.conf".
+Primary you have to change the default database connection, the application.secret, the administration Mail and smtp settings. All is requied to run a infoscreen-server instance.
+
+* Install with bower the css and javascript frameworks:
+
+Go to the folder "public" and then run "bower update". Bower downloads all required automatically.
+
+* Due to a current bug:
+
+    copy the file "public/bower_components/angular-file-upload/dist/angular-file-upload.min.js" to
+    "public/bower_components/angular-file-upload/angular-file-upload.min.js" 
+
+=== Start the Server ====
+
+run "sbt run"
+
+== There is also a Handbook available ==
+
+
+

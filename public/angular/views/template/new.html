@@ -1,0 +1,50 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'TEMPLATES.TEMPLATES.TEXT' | translate }}</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{{ 'INPUT' | translate }}</div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Der Name dient lediglich als Bezeichner um die Templates auseinander zu halten und wird in der Auswahl des Templates beim Bearbeiten einer Slide angezeigt.">{{ 'NAME' | translate }}</abbr> <span class="label label-default">{{template.name.length}} {{ 'CHARACTER' | translate }}</span></label>
+                <input type="text" name="name" placeholder="" data-ng-model="template.name" class="form-control" required />
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.css.$valid==0, 'has-success':myForm.css.$valid==1}">
+                <label><abbr title="Spezieller CSS-Code der nur für das einzelne Template angewendet wird.">CSS</abbr> <span class="label label-default">{{template.css.length}} {{ 'CHARACTER' | translate }}</span> <span class="label label-success"><abbr title="Freemarker kann in diesem Bereich verwendet werden.">FM <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></abbr></span></label>
+                <!--<textarea name="css"  data-ng-model="template.css" class="form-control" placeholder=" p.info { font-family: arial, sans-serif; }" rows="6"></textarea>-->
+                <!-- Style Testweise hier drin -->
+                <!-- ACE EDITOR START -->
+                <div name="css" class="form-control" data-ng-model="template.css" ui-ace="{
+                    mode: 'css',
+                    default: 'p.info { font-family: arial, sans-serif; }',
+                    onLoad: aceLoaded
+                }" ></div>
+                <!-- ACE EDITOR END -->
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.script.$valid==0, 'has-success':myForm.script.$valid==1}">
+                <label><abbr title="Spezieller JavaScript-Code der nur für das einzelne Template angewendet wird.">JavaScript</abbr> <span class="label label-default">{{template.script.length}} {{ 'CHARACTER' | translate }}</span> <span class="label label-success"><abbr title="Freemarker kann in diesem Bereich verwendet werden.">FM <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></abbr></span></label>
+                <!--<textarea name="script" data-ng-model="template.script" class="form-control" placeholder="$( &quot;p.info&quot; ).append( &quot; World!&quot; );" rows="12"></textarea>-->
+                <!-- ACE EDITOR START -->
+                <div name="script" class="form-control" data-ng-model="template.script" ui-ace="{
+                    mode: 'javascript',
+                    onLoad: aceLoaded
+                }" ></div>
+                <!-- ACE EDITOR END -->
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.html.$valid==0, 'has-success':myForm.html.$valid==1}">
+                <label><abbr title="HTML-Code der die Struktur des Templates bestimmt.">HTML</abbr> <span class="label label-default">{{template.html.length}} {{ 'CHARACTER' | translate }}</span> <span class="label label-success"><abbr title="Freemarker kann in diesem Bereich verwendet werden.">FM <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></abbr></span></label>
+                <!--<textarea name="html"  data-ng-model="template.html" class="form-control" placeholder="&lt;p class=&quot;info&quot;&gt;Hello &lt;/p&gt;" rows="24" required></textarea>-->
+                <!-- ACE EDITOR START -->
+                <div name="html" class="form-control" data-ng-model="template.html" ui-ace="{
+                    mode: 'ftl',
+                    onLoad: aceLoaded
+                }" required ></div>
+                <!-- ACE EDITOR END -->
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button class="btn btn-success" type="button" data-ng-click="save()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;{{ 'SAVE' | translate }}</button>
+        </div>
+    </div>
+</div>

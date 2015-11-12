@@ -1,0 +1,44 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Die hier aufgeführten Clients sind Infoscreens an der Technischen Universität Dortmund. Während des Startvorgangs können sie sich mit dem Token am Server registrieren um die aktuelle IP-Adresse und den SSH-Port zu übertragen.</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        Eingabe
+    </div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Der Name dient lediglich als Bezeichner um die Infoscreens auseinander zu halten.">Name</abbr> <span class="label label-default">{{client.name.length}} Zeichen</span></label>
+                <input type="text" name="name" data-ng-model="client.name" class="form-control" required />
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.location.$valid==0, 'has-success':myForm.location.$valid==1}">
+                <label><abbr title="Der Standort dient dazu den Infoscreen im Gebäude eindeutiger zu beschreiben.">Standort</abbr> <span class="label label-default">{{client.location.length}} Zeichen</span></label>
+                <input type="text" name="location" data-ng-model="client.location" class="form-control" required />
+            </div>
+            <div class="row">
+                <div class="form-group col-md-10" data-ng-class="{'has-error': myForm.street.$valid==0, 'has-success':myForm.street.$valid==1}">
+                    <label><abbr title="Straße des Standortes an dem der InfoScreen steht.">Straße</abbr> <span class="label label-default">{{client.street.length}} Zeichen</span></label>
+                    <input type="text" name="street" data-ng-model="client.street" class="form-control" required />
+                </div>
+                <div class="form-group col-md-2" data-ng-class="{'has-error': myForm.housenumber.$valid==0, 'has-success':myForm.housenumber.$valid==1}">
+                    <label><abbr title="Hausnummer des Standortes an dem der InfoScreen steht.">Hausnummer</abbr> <span class="label label-default">{{client.housenumber.length}} Zeichen</span></label>
+                    <input type="text" name="housenumber" data-ng-model="client.housenumber" class="form-control" required />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3" data-ng-class="{'has-error': myForm.zipcode.$valid==0, 'has-success':myForm.zipcode.$valid==1}">
+                    <label><abbr title="Postleitzahl des Standortes an dem der InfoScreen steht.">PLZ</abbr> <span class="label label-default">{{client.zipcode.length}} Zeichen</span></label>
+                    <input type="text" name="zipcode" data-ng-model="client.zipcode" class="form-control" required />
+                </div>
+                <div class="form-group col-md-9" data-ng-class="{'has-error': myForm.city.$valid==0, 'has-success':myForm.city.$valid==1}">
+                    <label><abbr title="Stadt in dem der InfoScreen steht.">Stadt</abbr> <span class="label label-default">{{client.city.length}} Zeichen</span></label>
+                    <input type="text" name="city" data-ng-model="client.city" class="form-control" required />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button class="btn btn-success" type="button" data-ng-click="save()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;speichern</button>
+        </div>
+    </div>
+</div>

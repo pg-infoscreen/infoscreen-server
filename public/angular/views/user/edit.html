@@ -1,0 +1,58 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Die hier aufgeführten Benuzter haben Zugriff auf den Administrationsbereich des Servers. Ein Benutzer, der mit dem Symbol <span class="glyphicon glyphicon-king" aria-hidden="true" title="Administrator mit Superrechten."></span> ausgezeichnet ist, besitzt zudem Superrechte. Er kann andere Benutzer bearbeiten und ihre Zugriffsdaten einsehen.</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Eingabe</div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.email.$valid==0, 'has-success':myForm.email.$valid==1}">
+                <label><abbr title="Die E-Mail Adresse dient zum Anmelden im Adminportal des Infoscreens und dem Empfang wichtiger Meldungen.">E-Mail</abbr></label> <span class="label label-default">{{editUser.email.length}} Zeichen</span> <span class="text-success" data-ng-show="emailExists==false">Diese Emailadresse ist noch nicht belegt.</span> <span class="text-danger" data-ng-show="emailExists==true">Diese Emailadresse existiert bereits.</span>
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="" class="form-control" data-ng-model="editUser.email" data-ng-blur="checkEmail()" required />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="checkEmail()">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Die E-Mail Adresse dient zum Anmelden im Adminportal des Infoscreens und dem Empfang wichtiger Meldungen.">Vorname</abbr></label> <span class="label label-default">{{editUser.firstname.length}} Zeichen</span>
+                <input type="text" name="name" placeholder="" data-ng-model="editUser.firstname" class="form-control" required />
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.firstname.$valid==0, 'has-success':myForm.firstname.$valid==1}">
+                <label><abbr title="Die E-Mail Adresse dient zum Anmelden im Adminportal des Infoscreens und dem Empfang wichtiger Meldungen.">Name</abbr></label> <span class="label label-default">{{editUser.name.length}} Zeichen</span>
+                <input type="text" name="firstname" placeholder="" data-ng-model="editUser.name" class="form-control" required />
+            </div>
+            <div class="form-group" data-ng-class="{'has-error': myForm.role.$valid==0, 'has-success': myForm.role.$valid==1}">
+                <label><abbr title="Zeigt die Rolle die dem Benutzer zugeordnet sind.">Rollen</abbr></label>
+                <div class="well">
+                    <label ng-repeat="role in rolelist track by $index">
+                      <input type="checkbox" data-ng-disabled="false" checklist-model="editUser.roles" checklist-value="role" > {{role.name}} </input>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button class="btn btn-default" type="button" data-ng-click="update()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;aktualisieren</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;löschen</button>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Benutzer löschen</h4>
+                    </div>
+                    <div class="modal-body">
+                        Möchten Sie den Benutzer <b>{{user.firstname}} {{user.name}}</b> wirklich löschen?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nein, abbrechen</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="delete()">Ja, löschen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

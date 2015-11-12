@@ -1,0 +1,22 @@
+<div class="well well-sm">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'CHANNELS.CHANNELS.TEXT' | translate }}
+</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading" data-ng-hide="channel.dynamic">
+        {{ 'INPUT' | translate }}
+    </div>
+    <div class="panel-body">
+        <form role="form" name="myForm">
+            <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                <label><abbr title="Der Name dient lediglich als Bezeichner um die Slides auseinander zu halten.">{{ 'NAME' | translate }}</abbr> <span class="label label-default">{{channel.name.length}} {{ 'CHARACTER' | translate }}</span></label>
+                <input type="text" name="name" data-ng-model="channel.name" class="form-control" required />
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button class="btn btn-success" type="button" data-ng-click="save()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;{{ 'SAVE' | translate }}</button>
+        </div>
+    </div>
+</div>

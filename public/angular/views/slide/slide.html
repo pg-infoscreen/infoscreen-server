@@ -1,0 +1,220 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> 
+<span translate="SLIDES.SLIDES.TEXT"></span>
+</div>
+<div data-ng-switch="templates.length" data-ng-cloak>
+    <div data-ng-switch-when="0">
+        <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'SLIDES.SLIDE.TEXT.ONE' | translate }}
+        </div>
+    </div>
+    <div data-ng-switch-default>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                {{ 'INPUT' | translate }}
+            </div>
+            <div>
+
+            </div>
+            <div class="panel-body">
+                <form role="form" name="myForm">
+                    <div class="form-group" data-ng-class="{'has-error': myForm.name.$valid==0, 'has-success':myForm.name.$valid==1}">
+                        <label><abbr title="Der Name dient lediglich als Bezeichner um die Slides auseinander zu halten.">{{ 'NAME' | translate }}</abbr> <span class="label label-default">{{slide.name.length}} {{ 'CHARACTER' | translate }}</span></label>
+                        <input type="text" name="name" data-ng-model="slide.name" class="form-control" required />
+                    </div>
+                    <div class="form-group" data-ng-class="{'has-error': myForm.preview.$valid==0, 'has-success':myForm.preview.$valid==1}">
+                        <label><abbr title="Dieser Text wird benutzt um eine Vorschau einer neue Slide anzuzeigen.">{{ 'PREVIEW.TEXT' | translate }}</abbr> <span class="label label-default">{{slide.preview.length}} {{ 'CHARACTER' | translate }}</span></label>
+                        <input type="text" name="preview" data-ng-model="slide.preview" class="form-control" />
+                    </div>
+                    <div class="form-group" data-ng-class="{'has-error': myForm.cronexpression.$valid==0, 'has-success':myForm.cronexpression.$valid==1}">
+                        <label><abbr title="Mit dieser CronExpression kann eine Menge von Zeitpunkten definiert werden, an denen die Slide angezeigt werden soll.">CronExpression</abbr> <span class="label label-default">{{slide.cronexpression.length}} {{ 'CHARACTER' | translate }}</span> <span class="label label-primary" data-ng-hide="!myForm.cronexpression.$valid">{{greeting}}</span></label>
+                        <input type="text" name="cronexpression" data-ng-model="slide.cronexpression" class="form-control" data-ng-trim="false" data-ng-pattern="/^((([*]|((([1-5][0-9])|[0-9])-(([1-5][0-9])|[0-9]))) ([*]|((2[0-3])|(1[0-9])|[0-9])|(((2[0-3])|(1[0-9])|[0-9])\/((2[0-3])|(1[0-9])|[0-9]))|(((2[0-3])|(1[0-9])|[0-9])-((2[0-3])|(1[0-9])|[0-9]))|(((2[0-3])|(1[0-9])|[0-9])(,((2[0-3])|(1[0-9])|[0-9]))*)) ([*]|((3[0-1])|([1-2][0-9])|[1-9])|(((3[0-1])|([1-2][0-9])|[1-9])\/((3[0-1])|([1-2][0-9])|[1-9]))|(((3[0-1])|([1-2][0-9])|[1-9])-((3[0-1])|([1-2][0-9])|[1-9]))|(((3[0-1])|([1-2][0-9])|[1-9])(,((3[0-1])|([1-2][0-9])|[1-9]))*)) ([*]|((1[0-2])|[1-9])|(((1[0-2])|[1-9])\/((1[0-2])|[1-9]))|(((1[0-2])|[1-9])-((1[0-2])|[1-9]))|(((1[0-2])|[1-9])(,((1[0-2])|[1-9]))*))( [?])(( ([*]|((19[7-9][0-9])|(20[0-9]{2}))|(((19[7-9][0-9])|(20[0-9]{2}))\/((19[7-9][0-9])|(20[0-9]{2})))|(((19[7-9][0-9])|(20[0-9]{2}))-((19[7-9][0-9])|(20[0-9]{2})))|(((19[7-9][0-9])|(20[0-9]{2}))(,((19[7-9][0-9])|(20[0-9]{2})))*)))?))|(([*]|((([1-5][0-9])|[0-9])-(([1-5][0-9])|[0-9]))) ([*]|((2[0-3])|(1[0-9])|[0-9])|(((2[0-3])|(1[0-9])|[0-9])\/((2[0-3])|(1[0-9])|[0-9]))|(((2[0-3])|(1[0-9])|[0-9])-((2[0-3])|(1[0-9])|[0-9]))|(((2[0-3])|(1[0-9])|[0-9])(,((2[0-3])|(1[0-9])|[0-9]))*))( [?]) ([*]|((1[0-2])|[1-9])|(((1[0-2])|[1-9])\/((1[0-2])|[1-9]))|(((1[0-2])|[1-9])-((1[0-2])|[1-9]))|(((1[0-2])|[1-9])(,((1[0-2])|[1-9]))*)) (([*]|[1-7]|([1-7]\/[1-7])|([1-7]-[1-7])|([1-7](,[1-7])*)))(( ([*]|((19[7-9][0-9])|(20[0-9]{2}))|(((19[7-9][0-9])|(20[0-9]{2}))\/((19[7-9][0-9])|(20[0-9]{2})))|(((19[7-9][0-9])|(20[0-9]{2}))-((19[7-9][0-9])|(20[0-9]{2})))|(((19[7-9][0-9])|(20[0-9]{2}))(,((19[7-9][0-9])|(20[0-9]{2})))*)))?)))$/" required />
+                    </div>
+                    
+                    <div class="form-group" data-ng-class="{'has-error': myForm.deathDateInput.$valid==0, 'has-success':myForm.deathDateInput.$valid==1}">
+                        <label><abbr title="Legt den Zeitpunkt fest, an dem die Slide gelöscht werden soll.">Löschzeitpunkt</abbr><span class="label label-default">dd.MM.yyyy HH:mm</span></label>
+                        <div class="input-group">
+	                        <span class="input-group-addon">
+	                           <input style="float: right" type="checkbox"  ng-model="enableDeathDate" />
+	                        </span>
+	                        <input type="text" name="deathDateInput" ng-change="updateDeathDate(deathDate)" ng-disabled="!enableDeathDate" class="form-control" ng-model="deathDate" date-parser="dd.MM.yyyy HH:mm" />
+	                    </div> 
+                    </div>                        
+                    <div class="form-group" data-ng-class="{'has-error': myForm.duration.$valid==0, 'has-success':myForm.duration.$valid==1}">
+                        <label><abbr title="Mit der Dauer kann die Zeit in Sekunden eingestellt werden wie lange eine Slide angezeigt werden soll.">{{ 'DURATION' | translate }} <small>({{ 'SLIDES.SLIDE.TEXT.TWO' | translate }})</small></abbr> </label>
+                        <input type="text" name="duration" placeholder="[1-9][0-9]*" data-ng-model="slide.duration" class="form-control" data-ng-pattern="/^[1-9][0-9]*$/" required/>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="slide.active"> <abbr title="Mit dieser Eintstellung wird angegeben, ob eine Slide angezeigt oder nicht angezeigt werden soll.">{{ 'ACTIVE' | translate }}</abbr>
+                        </label>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label=". ..">
+                            <button type="button" class="btn btn-default" data-ng-class="{'active': slide.status=='STATIC'}" data-ng-click="slide.status = 'STATIC'">{{ 'STATIC' | translate }}</button>
+                            <button type="button" class="btn btn-default"  data-ng-class="{'active': slide.status=='DYNAMIC'}" data-ng-click="slide.status = 'DYNAMIC'">{{ 'DYNAMIC' | translate }}</button>
+                            <button type="button" class="btn btn-default"  data-ng-class="{'active': slide.status=='EDITOR'}" data-ng-click="slide.status = 'EDITOR'">{{ 'EDITOR' | translate }}</button>
+                        </div>
+                    </div>
+                    <div data-ng-switch on="slide.status">
+                        <div data-ng-switch-when="STATIC">
+                            <div class="form-group" data-ng-class="{'has-error': myForm.template.$valid==0, 'has-success': myForm.template.$valid==1}">
+                                <label><abbr title="Die Auswahl definiert das Template welches über Design und Struktur der Inhalte entscheidet.">{{ 'TEMPLATE' | translate }}</abbr></label>
+                                <select data-ng-model="slide.template.template_id" name="template" data-ng-options="temp.template_id as temp.name for temp in templates" required>
+                                </select>
+                        <div style="float: right" aria-label=". ..">
+                            <label><abbr title="Im Simplen Modus wird ein UI für das Editorend er statischen Daten angezeigt. Die ist nur verfügbar wenn das Template dies unterstüzt.">Simpler Modus:</abbr>
+                             <input type="checkbox" ng-disabled="templ == null" ng-model="complexMode" ng-false-value="true" ng-true-value="false">
+                            </label>
+                        </div>
+                            </div>
+                            <div ng-show="templ == null || complexMode" class="form-group" data-ng-class="{'has-error': myForm.content.$valid==0, 'has-success':myForm.content.$valid==1}">
+                                <label><abbr title="Der Inhalt ist der Bereich in dem die reinen Daten einer Slide abgespeichert werden. Der Inhalt wird bei nicht statischen Slides durch die in der URL definierten Quelle überschrieben.">{{ 'CONTENT' | translate }} <small>({{ 'SLIDES.SLIDE.TEXT.THREE' | translate }})</small></abbr> <span class="label label-default">{{slide.content.length}} {{ 'CHARACTER' | translate }}</span></label>
+                                <!--<textarea name="content" data-ng-model="slide.content" class="form-control" rows="3" required></textarea>-->
+                                <!-- ACE EDITOR START -->
+                                <div ng-change="isJSONValid(slide.content,templ)" name="content" class="form-control" data-ng-model="slide.content" ui-ace="{
+                            mode: 'json',
+                            onLoad: aceLoaded
+                        }" required disabled></div>
+                                <!-- ACE EDITOR END -->
+                            </div>
+                             <script type="text/ng-template"  id="showElement.html">
+                    <div style="padding-left:10px" class="form-group" ng-If="desc.type=='String'">
+                        <label><abbr title="{{desc.desc}}">{{desc.name}}</abbr> </label>
+                        <input type="text" ng-change="onStaticChange()" data-ng-model="desc.owner[desc.name]" class="form-control"/>
+                    </div>
+                    <div style="padding-left:10px" class="form-group" ng-If="desc.type=='Int'">
+                        <label><abbr title="{{desc.desc}}">{{desc.name}}</abbr> </label>
+                        <input type="number" ng-change="onStaticChange()" data-ng-model="desc.owner[desc.name]" pattern="[1-9][0-9]*" class="form-control"/>
+                    </div>
+                    <div style="padding-left:10px" class="form-group" ng-If="desc.type=='Bool'">
+                        <label><abbr title="{{desc.desc}}">{{desc.name}}</abbr> </label>
+                        <input type="checkbox" ng-change="onStaticChange()" data-ng-model="desc.owner[desc.name]" class="form-control"/>
+                    </div>
+                    <div style="padding-left:10px" class="form-group" ng-If="desc.type=='List'">
+                        <label><abbr title="{{desc.desc}}">Liste: {{desc.name}}</abbr> </label>
+                        <a class="btn btn-default" style="float: right" target="_blank" ng-click="listAdd(desc)">Hinzufügen</a>
+                        <div ng-repeat="list in desc.owner[desc.name] track by $index">
+                            <label><abbr title="Element {{$index}}">{{desc.name}} - Eintrag {{$index + 1}}</abbr> </label>                            
+                            <div data-ng-repeat="desc in list.$$complexDesc  track by $index" ng-include="'showElement.html'" onload="">
+                        </div>
+                        </div>
+                    </div>
+                    <div style="padding-left:10px" class="form-group" ng-If="desc.type=='Complex'">
+                        <label><abbr title="{{desc.desc}}">Complex: {{desc.name}}</abbr> </label>
+                        <div data-ng-repeat="desc in desc.complexDesc track by $index" ng-include="'showElement.html'" onload="">
+                        </div>
+                    </div>
+                    <hr>
+                            </script>
+                            <div ng-If="templ != null" ng-show="!complexMode">
+                                <div data-ng-repeat="desc in templ track by $index" ng-include="'showElement.html'" onload=""> 
+                                </div>
+                            </div>
+				        </div>
+                        <div data-ng-switch-when="DYNAMIC">
+                            <div class="form-group" data-ng-class="{'has-error': myForm.template.$valid==0, 'has-success': myForm.template.$valid==1}">
+                                <label><abbr title="Die Auswahl definiert das Template welches über Design und Struktur der Inhalte entscheidet.">{{ 'TEMPLATE' | translate }}</abbr></label>
+                                <select data-ng-model="slide.template.template_id" name="template" data-ng-options="temp.template_id as temp.name for temp in templates" required>
+                                </select>
+                            </div>
+                            <div class="form-group" data-ng-class="{'has-error': myForm.content.$valid==0, 'has-success':myForm.content.$valid==1}">
+                                <label><abbr title="Der Inhalt ist der Bereich in dem die reinen Daten einer Slide abgespeichert werden. Der Inhalt wird bei nicht statischen Slides durch die in der URL definierten Quelle überschrieben.">{{ 'CONTENT' | translate }} <small>({{ 'SLIDES.SLIDE.TEXT.THREE' | translate }})</small></abbr> <span class="label label-default">{{slide.content.length}} {{ 'CHARACTER' | translate }}</span></label>
+                                <textarea name="content" data-ng-model="slide.content" class="form-control" rows="3" disabled></textarea>
+                            </div>
+                            <div class="form-group" data-ng-class="{'has-error': myForm.url.$valid==0, 'has-success':myForm.url.$valid==1}">
+                                <label><abbr title="Die URL definiert den Ort, von dem die aktuellsten Daten geladen werden können. Für statischen Inhalt dieses Feld bitte leer lassen.">{{ 'URL' | translate }}</abbr> <span class="label label-default">{{slide.url.length}} {{ 'CHARACTER' | translate }}</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-default" href="{{slide.url}}" target="_blank" role="button">@</a>
+                                    </span>
+                                    <input type="url" name="url" data-ng-model="slide.url" class="form-control" class="form-control" data-ng-required="slide.status=='DYNAMIC'"/>
+                                </div>
+                            </div>
+                            <div class="form-group" data-ng-class="{'has-error': myForm.updateTime.$valid==0, 'has-success': myForm.updateTime.$valid==1}">
+                                <label><abbr title="Der Zeitabstand definiert die Zeit die zwischen zwei Aktualisierungen des Inhalts vergehen soll.">{{ 'SLIDES.SLIDE.TEXT.FOUR' | translate }} <small>({{ 'SLIDES.SLIDE.TEXT.FIVE' | translate }})</small></abbr> </label>
+                                <input type="text" name="updateTime" data-ng-model="slide.updateTime" data-ng-pattern="/^([1-9]|[1-9][0-9])$/" class="form-control" data-ng-required/>
+                            </div>
+                            <div class="form-group" data-ng-class="{'has-error': myForm.updateTimeUnit.$valid==0, 'has-success': myForm.updateTimeUnit.$valid==1}">
+                                <label><abbr title="Die Zeiteinheit definiert die Einheit des Zeitabstandes.">{{ 'SLIDES.SLIDE.TEXT.SIX' | translate }}</abbr></label>
+                                <select data-ng-model="slide.updateTimeUnit" name="updateTimeUnit">
+                                    <option value="MINUTES">{{ 'MINUTES' | translate }}</option>
+                                    <option value="HOURS">{{ 'HOURS' | translate }}</option>
+                                    <option value="DAYS">{{ 'DAYS' | translate }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div data-ng-switch-when="EDITOR">
+                            <button type="button" class="btn btn-default" data-ng-click="openModal()" >&nbsp;<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;{{ 'PICTURES' | translate }}</button>
+                            <br>
+                            <br>
+                            <summernote height="300" data-ng-model="slide.editorContent" class="summernote"></summernote>
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">{{ 'SLIDES.SLIDE.TEXT.SEVEN' | translate }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">{{ 'SEARCH' | translate }}</span>
+                                                <input data-ng-model="query" class="form-control">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+                                                </span>
+                                            </div>
+                                            <hr>
+                                            <ul class="media-list">
+                                                <li data-ng-repeat="image in images | filter:query" class="media" data-ng-click="addImage(image)" style="cursor: pointer;">
+                                                    <div class="media-left">
+                                                        <a href="" >
+                                                            <img src="library/{{image.name}}_small.{{image.extension}}" style="width: 64px;" class="media-object" alt="{{image.name}}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">{{image.name}}</h4>
+                                                        <b>{{ 'SIZE' | translate }}:</b> {{image.size | filterSizeHumanReadable}}<br>
+                                                        <b>{{ 'SLIDES.SLIDE.TEXT.EIGHT' | translate }}</b> {{image.creationtime | date:'yyyy-MM-dd HH:mm:ss'}}<br>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <div class="btn-group">
+                    <button class="btn btn-default" type="button" data-ng-click="saveSlide()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon" data-ng-class="{'glyphicon-floppy-save': success == null, 'has-success': myForm.updateTimeUnit.$valid==1}" aria-hidden="true"></span>&nbsp;{{ 'SAVE' | translate }}</button>
+                    <button class="btn btn-default" type="button" data-ng-click="update()" data-ng-disabled="!myForm.$valid">&nbsp;<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;{{ 'UPDATE' | translate }}</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;{{ 'REMOVE' | translate }}</button>
+                </div>
+                <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="modalDeleteLabel">{{ 'SLIDES.SLIDE.TEXT.NINE' | translate }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <span translate="SLIDES.SLIDE.TEXT.TEN" translate-value-slide="{{slide.name}}"></span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'REMOVE.ABORT' | translate }}</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="delete()">{{ 'REMOVE.CONFIRM' | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <a class="btn btn-default" style="float: right" target="_blank" href="#/slide/preview/{{slide.slide_id}}">Anzeigen</a>
+            </div>
+        </div>
+    </div>
+</div>

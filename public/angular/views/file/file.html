@@ -1,0 +1,39 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'LIBRARYS.LIBRARYS.TEXT' | translate }}</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{{ 'WEBPATH' | translate }}: <a href="library/{{file.name}}">${library}{{file.name}}</a> <span class="glyphicon glyphicon-globe" aria-hidden="true" data-ng-click="clipboard()" title="Der Webpfad kann benutzt werden, um öffentllich auf die Datei zu zugreifen." style="cursor:pointer"></span> <span class="label label-success"><abbr title="Dieser String wird durch Freemarker interpretiert.">FM <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></abbr></span></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2"><strong>{{ 'SIZE' | translate }}:</strong> {{file.size | filterSizeHumanReadable}}</div>
+        </div>
+        <div data-ng-switch="file.type">
+            <div data-ng-switch-when="image/jpeg"><img src="library/{{file.name}}.{{file.extension}}" class="img-responsive img-thumbnail" alt="Responsive image"></div>
+            <div data-ng-switch-when="image/png"><img src="library/{{file.name}}.{{file.extension}}" class="img-responsive img-thumbnail" alt="Responsive image"></div>
+            <div data-ng-switch-default>
+                <pre>{{file.content}}</pre>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;{{ 'REMOVE' | translate }}</button>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'LIBRARYS.LIBRARY.TEXT.ONE' | translate }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span translate="LIBRARYS.LIBRARY.TEXT.TWO" translate-value-file="{{file.name}}.{{file.extension}}"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'REMOVE.ABORT' | translate }}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="delete()">{{ 'REMOVE.CONFIRM' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

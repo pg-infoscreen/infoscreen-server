@@ -1,0 +1,37 @@
+<div class="well well-sm"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ 'NEWSTICKERS.NEWSTICKERS.TEXT' | translate }}</div>
+<form class="form-inline" role="form">
+    <button type="button" class="btn btn-success"  data-ng-click="get()" title="Daten neu laden.">&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;</button>
+    <a href="#/newstickers/new" class="btn btn-primary">{{ 'NEW' | translate }}</a>
+    <div class="input-group">
+        <span class="input-group-addon">{{ 'SEARCH' | translate }}</span>
+        <input data-ng-model="query" class="form-control">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-ng-click="query=null">&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;</button>
+        </span>
+    </div>
+</form>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        {{ 'NEWSTICKER' | translate }} <small>{{newstickers.length}}</small>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{ 'ID' | translate }}</th>
+                <th>{{ 'NAME' | translate }}</th>
+                <th>{{ 'ACTIVE' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="newsticker in newstickers | filter:query" data-ng-class="{'info':activeNewsticker_id==newsticker.newsticker_id}">
+                <td>{{newsticker.newsticker_id}}</td>
+                <td><a href="#/newsticker/{{newsticker.newsticker_id}}">{{newsticker.name}}</a></td>
+                <td>
+                    <span class="label label-danger" data-ng-if="newsticker.active == 0" data-ng-click="update()" style="cursor: pointer">Off</span>
+                    <span class="label label-success" data-ng-if="newsticker.active == 1" data-ng-click="update()" style="cursor: pointer">On</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

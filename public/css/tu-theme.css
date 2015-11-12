@@ -1,0 +1,73 @@
+body {
+    padding-top: 60px;
+}
+
+
+.panel-default > .panel-heading{
+background-image: linear-gradient(to bottom, #3C3C3C 0px, #222 100%);
+    color: #ffffff;
+}
+
+.panel-default > .panel-heading a{
+    color: #6ec72d;
+}
+
+.panel-default > .panel-heading > .close {
+    color: red;
+    opacity: 0.6;
+    text-shadow: 0px 1px 0px #080808;
+
+}
+
+.tu-active{
+    background-color:#b6ffbc;
+}
+
+.panel-default > .panel-heading > .close:hover {
+    opacity: 1;
+}
+
+.login .form div:first-child input{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+}
+
+.login .form div:last-child input{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0;
+}
+
+.login .form .form-group {
+    margin-bottom: 0;
+}
+
+.login button.btn, .lostPassword button.btn {
+    margin-top: 15px;
+}
+
+.login div.link, .lostPassword div.link{
+    margin-top: 15px;
+}
+
+div.link{
+    background-color: transparent;
+    box-sizing: border-box;
+    color: #337AB7;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    text-decoration-color: #337AB7;
+    text-decoration-style: solid;
+    cursor: pointer;
+}
+
+.note-editor.fullscreen, .note-editable{
+    background-color: #689F48 !important;
+}
+
+.media-list li:hover{
+    background-color: #f5f5f5;
+}
